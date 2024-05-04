@@ -118,7 +118,7 @@ const Calculator = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Window Pricing Calculator</h1>
+      <h1 className="mb-4">SDSC Price Calc</h1>
       <div className="row mb-3">
         <div className="col-md-6">
           {/* Window type selection */}
