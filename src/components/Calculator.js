@@ -14,6 +14,7 @@ const Calculator = () => {
   const [price, setPrice] = useState(null);
   // State variable for retail price checkbox
   const [isRetailPrice, setIsRetailPrice] = useState(false);
+  const [includeTaxes, setIncludeTaxes] = useState(true); // Default to true
 
   // Function to handle price calculation
   const calculatePrice = () => {
@@ -57,6 +58,11 @@ const Calculator = () => {
       calculatedPrice *= 1.25; // Increase price by 25%
     }
 
+    // Apply taxes if checkbox is checked
+    if (includeTaxes) {
+      calculatedPrice *= 1.0825; // Add 8.25% taxes
+    }
+
     // Set the calculated price
     setPrice(calculatedPrice);
   };
@@ -70,6 +76,11 @@ const Calculator = () => {
   // Function to handle checkbox change
   const handleCheckboxChange = () => {
     setIsRetailPrice(!isRetailPrice); // Toggle checkbox state
+  };
+
+  // Function to handle checkbox change for taxes
+  const handleTaxesCheckboxChange = () => {
+    setIncludeTaxes(!includeTaxes); // Toggle checkbox state
   };
 
   // Helper function to get additional lites values
@@ -114,7 +125,7 @@ const Calculator = () => {
   // Effect to automatically update the output when inputs change
   useEffect(() => {
     calculatePrice();
-  }, [windowType, width, height, glass, upperLites, lowerLites, sashLites, isRetailPrice]);
+  }, [windowType, width, height, glass, upperLites, lowerLites, sashLites, isRetailPrice, includeTaxes]);
 
   return (
     <div className="container mt-5">
@@ -176,6 +187,13 @@ const Calculator = () => {
             <input className="form-check-input" type="checkbox" id="retailPriceCheckbox" checked={isRetailPrice} onChange={handleCheckboxChange} />
             <label className="form-check-label" htmlFor="retailPriceCheckbox">
               Retail Price
+            </label>
+          </div>
+          {/* Taxes checkbox */}
+          <div className="form-check">
+            <input className="form-check-input" type="checkbox" id="taxesCheckbox" checked={includeTaxes} onChange={handleTaxesCheckboxChange} />
+            <label className="form-check-label" htmlFor="taxesCheckbox">
+              Include Taxes
             </label>
           </div>
         </div>
